@@ -1,0 +1,160 @@
+
+I looked at the Examples provided and realised I could treat the 2 d arrays as graphs therefore I could use a Depth first and Breadth first traversals 
+
+
+Depth first approach 
+- data types:
+	- 2d array 
+		- to store map
+	- Endless stack 
+		- to store chain of visited nodes
+		-  doesn't have an maximum value as idk how long the route is.
+	- list
+		- to store all visited nodes.
+		- dynamic
+- ADL code (low level):
+
+// assuming Endless stack is implemented
+
+function lookArround(array currentLocation, array maze ){ // returns an array of all coordinates 1 place away form currentLocation
+	int x <- currentLocation - 1
+	int y <- currentLocation + 1
+	array zerosLocation <- {}
+	
+	for y to y + 3 {
+		for x to x + 3 {
+			if maze[x,y] == 0 and maze[x,y] != currentLocation {
+				zerosLocation.add({x,y})
+			} else if maze[x,y] != 1 {
+				zerosLocation.add({-1,-1}) // -1,-1 signifies end	
+			}
+			x <- x + 1
+		}
+		x <- current location - 1 // resets x to end s
+		y <- y  - 1  
+	} 
+	return zerosLocation
+}
+
+function findRoute(array currentPos, EndlessStack previous, list visited, array maze){ // returns to exits if found if not returns empty array.
+	array options <- lookArround(currentPos, maze)
+	previous.add(currentPos)
+	vistited.add(currentPos)
+	
+	//check if there's not any options i.e. dead end
+	if (options == null){
+		return {}
+	} else{
+
+		// check if exit found
+		for each option in options {
+			if (option == {-1,-1} and previous != null){
+				previous.add(currentPos)
+				return previous
+			} 
+		// if not check paths
+		for each option in options {
+			if( !visited.isIn(option)){
+				
+				EndlessStack route <- findRoute(option, previous, visited maze)
+				if (route != null){
+					return route
+				}
+			}
+		}
+		if ( previous == null) {
+			print("no exit")
+		}esle{
+			return {}		
+		}
+	}
+}
+
+
+- EndlessStack previous , {}
+- list visited <- {}
+- array maze <- {
+	{1,0,1,1,1,1,1,1}
+	{1,0,0,0,0,0,0,1}
+	{1,1,1,1,1,1,0,1}
+	{1,0,0,0,0,0,0,1}
+	{1,0,1,1,1,1,1,1}
+	{1,0,0,0,0,0,0,1}
+	{1,1,1,1,1,1,0,1}
+	{1,0,0,0,0,0,0,1}
+	{1,0,1,1,1,1,1,1}
+	{1,0,0,0,0,0,0,0}
+	{1,1,1,1,1,1,1,1}
+};
+
+development notes:
+
+- refined algorithm so lookarround function not needed any more
+- endless stack not needed as recursion handles the removal of nodes so previous is just an dynamic list now
+
+problems with developed algorithm: 
+
+- algorithm returns the first route it finds, not necessarily the shortest route
+
+
+breadth first approach 
+- data types:
+	- 2d array 
+		- to store map
+	- queue
+		- to store nodes to visit next
+		- dynamic
+	- structure
+		- to store positions of the nodes the algorithm will traverse to
+		- to store the previous node that this node was traversed to from
+		- to store if end found 
+	- list
+		- to store all visited nodes.
+		- dynamic
+	- Endless stack 
+		- to store chain of visited nodes
+		-  doesn't have an maximum value as idk how long the route is.
+- ADL code (highlevel):
+
+function traverseNodes(currentNode,stack): 
+	if currentNode's previousNode is null: 
+		return stack
+	else 
+		stack.Push(currentNode)
+		traverseNode(currentNode's previousNode)
+	endif
+
+declare startPosition, queue, visitedlist
+
+
+loop:
+	if current location on edge: 
+		set currentlocation.endFound to true
+	else:
+		add nodes connected to current to queue
+	end if
+
+	add current location to visitedList
+	set current location to first node in queue
+until queue is empty
+
+declare routesList
+loop for every node in visitedList: 
+	if node's endFound is true:
+		set routeEndlessStack to return value of traverseNodes(node, stack)
+		add routeEndlessStack to routesList 
+	endif
+end loop
+
+declare bestRouteLength, bestRouteIndex
+loop for every route in routeList:
+	if route's length > bestRouteLength:
+		set bestRouteIndex to currentIndex
+	endif
+end loop
+	
+
+
+
+
+

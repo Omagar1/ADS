@@ -1,0 +1,9 @@
+
+Depth first approach 
+- 2d array 
+	- to store map
+- Endless stack 
+	- to store chain of visited nodes
+	-  doesn't have an maximum value as idk how long the route is.
+
+

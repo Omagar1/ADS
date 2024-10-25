@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "FsDr8JXZWCv/IfRlEPdyRiu7tyqLWHsa7++WgV24zAgSVC9y5d0aakPNGZE10z33hnyhIpyJHbhtd3aso+hylQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\Project2\\Project2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\josia\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.24\\microsoft.windowsdesktop.app.ref.6.0.24.nupkg.sha512",
+    "C:\\Users\\josia\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.24\\microsoft.netcore.app.ref.6.0.24.nupkg.sha512",
+    "C:\\Users\\josia\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.24\\microsoft.aspnetcore.app.ref.6.0.24.nupkg.sha512",
+    "C:\\Users\\josia\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.24\\microsoft.netcore.app.host.win-x64.6.0.24.nupkg.sha512"
+  ],
+  "logs": []
+}

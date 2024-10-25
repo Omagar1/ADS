@@ -1,0 +1,14 @@
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\bin\Debug\net7.0\Project2V2.exe
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\bin\Debug\net7.0\Project2V2.deps.json
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\bin\Debug\net7.0\Project2V2.runtimeconfig.json
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\bin\Debug\net7.0\Project2V2.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\bin\Debug\net7.0\Project2V2.pdb
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.AssemblyInfoInputs.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.AssemblyInfo.cs
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.csproj.CoreCompileInputs.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\refint\Project2V2.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.pdb
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\Project2V2.genruntimeconfig.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\Project2V2\obj\Debug\net7.0\ref\Project2V2.dll

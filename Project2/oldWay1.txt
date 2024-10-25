@@ -1,0 +1,152 @@
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq; 
+
+namespace maze{
+    class EndlessStack{
+        public void add(int[] valToAdd){
+            this.values.Add(valToAdd );
+        }
+        
+        public bool isEmpty(){
+            if (this.values.Count == 0){
+                return true;
+            }
+            else { 
+                return false; 
+            }
+        }
+        
+        public int[] pop(){
+            int[] temp = values[-1];
+            values.RemoveAt(-1); 
+            return temp;
+        }
+
+        public  List<int[]> convertToList(){
+            return values;
+        }
+
+
+        private List<int[]> values = new List<int[]>();
+    }
+
+    class Program {
+        static List<int[]> lookArround(int[] currentLocation, int[,] maze) { // returns an array of all coordinates 1 place away form currentLocation
+            List<int[]> zerosLocation = new List<int[]>(); 
+
+            for (int y = currentLocation[0] -1; y < currentLocation[1] + 2; y++) {
+                for (int x = currentLocation[1] - 1; x < currentLocation[1] + 2  ; x++) {
+
+                    int[] lookPos = { y, x };
+                    if (maze[y, x] == 0 && !currentLocation.SequenceEqual(lookPos))  {
+                        int[] valToAdd = { y, x };
+                        zerosLocation.Add(valToAdd);
+                    } else if (maze[y, x] != 1 && !currentLocation.SequenceEqual(lookPos)) {
+                        int[] valToAdd = { -1, -1 }; // -1,-1 signifies exit	
+                        zerosLocation.Add(valToAdd); 
+                    }
+
+                }
+            }
+            return zerosLocation;
+        }
+
+
+        static EndlessStack? findRoute(int[] currentPos, EndlessStack previous, List<int[]> visited, int[,] maze){ // returns to exits if found if not returns null.
+            Console.WriteLine("current Location: ({0},{1})" , currentPos[0], currentPos[1]);// test 
+            List<int[]> options = lookArround(currentPos, maze);
+            // test
+            Console.Write("options: "); 
+            foreach (int[] lookPos in options){
+                Console.Write("({0},{1})", lookPos[0], lookPos[1]);
+            }
+            Console.WriteLine();
+            previous.add(currentPos);
+            visited.Add(currentPos);
+
+            //check if there's not any options i.e. dead end
+            if (options == null) {
+                return null;
+            } else
+                // check if exit found
+                foreach (int[] option in options) {
+                    int[] routeFoundSignal = { -1, -1 };
+                    if (option == routeFoundSignal && !previous.isEmpty()) {
+                        previous.add(currentPos);
+                        return previous;
+
+                    }
+                }
+                // if not check paths
+                foreach (int[] option in options) {
+                    if (!visited.Contains(option)){
+                            EndlessStack route = findRoute(option, previous, visited, maze); 
+
+                            if (route != null){
+                                    return route;
+                            }
+                    }
+                }
+                if (previous == null) {
+                     Console.WriteLine("no exit");
+                }
+                return null; 	
+		        
+            }
+	    
+        static void Main(string[] args){
+
+            EndlessStack previous = new EndlessStack();
+            List<int[]> visited = new List<int[]>();
+            int[,] maze = {
+                { 1,1,1,1,1,1,1,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,1,1,1,1,1,0,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,1,1,1,1,1,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,1,1,1,1,1,0,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,1,1,1,1,1,1},
+                { 1,0,0,0,0,0,0,-1},
+                { 1,1,1,1,1,1,1,1}
+            };
+            int[] STARTPos = { 1, 1 };
+            EndlessStack result = findRoute(STARTPos, previous, visited, maze);
+
+            // display result
+            if (result != null)
+            {
+                List<int[]> resultList = result.convertToList();
+                Console.WriteLine(resultList);
+            }
+            else
+            {
+                Console.WriteLine("No Exit Found");
+            }
+            // test 
+
+            //Console.WriteLine(maze[1, 2]);
+            /*int y = 1;
+            int x = 1;
+
+            int[] checkVar = { y, x };
+            Console.WriteLine(maze[y, x] == 0 && (STARTPos != checkVar));
+            Console.WriteLine(maze[y, x] == 0);
+            Console.WriteLine((STARTPos != checkVar));
+            Console.WriteLine(checkVar - STARTPos);*/
+
+
+            /*foreach (int[] node in resultList){
+
+
+            }*/
+        }
+        
+
+
+    }
+}
