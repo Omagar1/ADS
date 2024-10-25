@@ -106,7 +106,7 @@ breadth first approach
 		- dynamic
 	- structure
 		- to store positions of the nodes the algorithm will traverse to
-		- to store the previous node that this node was traversed to from
+		- to to store positions of the nodes the algorithm will traverse to
 		- to store if end found 
 	- list
 		- to store all visited nodes.
@@ -129,7 +129,7 @@ declare startPosition, queue, visitedlist
 
 loop:
 	if current location on edge: 
-		set currentlocation.endFound to true
+		set currentlocation's endFound to true
 	else:
 		add nodes connected to current to queue
 	end if
