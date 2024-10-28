@@ -312,18 +312,36 @@ namespace maze
 
             int[] STARTPos = { 0, 1 };
             depthFirst Alg1 = new depthFirst(maze);
-            breadthFirst Alg2 = new breadthFirst(maze2);
+            breadthFirst Alg2 = new breadthFirst(maze);
             Node STARTPosNode = new Node(STARTPos);
-            List<int[]> result = Alg2.findRoute(STARTPosNode);
+            List<int[]> alg1Result = Alg1.findRoute(STARTPos);
+            List<int[]> alg2Result = Alg2.findRoute(STARTPosNode);
 
             // display result
-            if (result != null)
+            Console.WriteLine(" Alg 1 route:");
+            if (alg1Result != null)
             {
-                Console.WriteLine("route:");
+                
                 /*List<int[]> resultList = result.convertToList();*/
-                foreach (int[] node in result)
+                foreach (int[] node in alg1Result)
                 {
-                    Console.Write("({0},{1}) then: ", node[0], node[1]);
+                    Console.Write("({0},{1}), ", node[0], node[1]);
+                }
+                Console.Write("End");
+            }
+            else
+            {
+                Console.WriteLine("No Exit Found");
+            }
+
+            Console.WriteLine(" Alg 2 route:");
+            if (alg2Result != null)
+            {
+
+                /*List<int[]> resultList = result.convertToList();*/
+                foreach (int[] node in alg2Result)
+                {
+                    Console.Write("({0},{1}), ", node[0], node[1]);
                 }
                 Console.Write("End");
             }
@@ -350,8 +368,8 @@ namespace maze
 
 
             //Console.WriteLine(node1.samePos(new int[] { 1, 2,})); // Should print true
-           /* Console.WriteLine(visitedlist.Any(node => node.samePos(new int[] {1,0}))); // should print flase*/
-            
+            /* Console.WriteLine(visitedlist.Any(node => node.samePos(new int[] {1,0}))); // should print flase*/
+
 
             //Console.WriteLine(maze[1, 2]);
             /*int y = 1;
