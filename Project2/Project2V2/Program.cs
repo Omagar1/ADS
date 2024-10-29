@@ -310,9 +310,9 @@ namespace maze
 
 
 
-            int[] STARTPos = { 0, 1 };
-            depthFirst Alg1 = new depthFirst(maze);
-            breadthFirst Alg2 = new breadthFirst(maze);
+            int[] STARTPos = { 1, 1 };
+            depthFirst Alg1 = new depthFirst(maze2);
+            breadthFirst Alg2 = new breadthFirst(maze2);
             Node STARTPosNode = new Node(STARTPos);
             List<int[]> alg1Result = Alg1.findRoute(STARTPos);
             List<int[]> alg2Result = Alg2.findRoute(STARTPosNode);
@@ -327,7 +327,7 @@ namespace maze
                 {
                     Console.Write("({0},{1}), ", node[0], node[1]);
                 }
-                Console.Write("End");
+                Console.Write("End \n");
             }
             else
             {
@@ -343,7 +343,7 @@ namespace maze
                 {
                     Console.Write("({0},{1}), ", node[0], node[1]);
                 }
-                Console.Write("End");
+                Console.Write("End \n");
             }
             else
             {
