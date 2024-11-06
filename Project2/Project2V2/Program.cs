@@ -39,9 +39,13 @@ namespace maze
             return temp;
         }
 
-        public List<Node> convertToList()
+        public List<int[]> convertToList()
         {
-            return values;
+            List<int[]> returnVal = new List<int[]>();
+            foreach (Node val in values) {
+                returnVal.Add(val.position);
+            }
+            return returnVal;
         }
 
         public int count()
@@ -79,13 +83,13 @@ namespace maze
         }
         public List<int[]>? findRoute(int[] currentPos) // for the fist call 
         {
-            List<int[]> previous = new List<int[]>();
-            return findRoute(currentPos, previous);
+            EndlessStack previous = new EndlessStack();
+            return findRoutePt2(currentPos, previous).convertToList();
         }
-        public List<int[]>? findRoute(int[] currentPos, List<int[]> previous)
+        public EndlessStack? findRoutePt2(int[] currentPos, EndlessStack previous)
         { // returns to exits if found if not returns null.
             Console.WriteLine("current Location: ({0},{1})", currentPos[0], currentPos[1]);// test 
-            previous.Add(currentPos);
+            previous.push(new Node(currentPos));
             visited.Add(currentPos);
 
             for (int y = currentPos[0] - 1; y <= currentPos[0] + 1; y++)
@@ -101,17 +105,21 @@ namespace maze
                     if (inRange(maze, lookPos) && maze[y, x] == 0 && !currentPos.SequenceEqual(lookPos) && !visited.Any(array => array.SequenceEqual(lookPos)))
                     {
                         // end not found explore more
-                        List<int[]> route = findRoute(lookPos, previous);
+                        EndlessStack route = findRoutePt2(lookPos, previous);
                         Console.WriteLine("current Location: ({0},{1})", currentPos[0], currentPos[1]);// test 
                         if (route != null)
                         {
                             /*Console.WriteLine("(y,x): ({0},{1})", y, x); //test*/
                             return route;
                         }
+                        else
+                        {
+                            previous.pop();
+                        }
 
                     } // checks if lookPos is not in range as would signify that the End has been found and previous is > 1  as to check we are not at the start, 
                       // && maze[y, x] != 1 && !currentPos.SequenceEqual(lookPos) && !visited.Any(array => array.SequenceEqual(lookPos))
-                    else if ((!inRange(maze, lookPos) && previous.Count > 1))
+                    else if ((!inRange(maze, lookPos) && previous.count() > 1))
                     {
                         // end found 
                         /*previous.Add(currentPos);*/
@@ -269,7 +277,7 @@ namespace maze
         private List<Node> visitedlist;
 
     }
-
+    
 
 
     class Program
@@ -311,18 +319,20 @@ namespace maze
 
 
             int[] STARTPos = { 1, 1 };
-            depthFirst Alg1 = new depthFirst(maze2);
-            breadthFirst Alg2 = new breadthFirst(maze2);
+            depthFirst Alg1 = new depthFirst(maze);
+            breadthFirst Alg2 = new breadthFirst(maze);
             Node STARTPosNode = new Node(STARTPos);
-            List<int[]> alg1Result = Alg1.findRoute(STARTPos);
-            List<int[]> alg2Result = Alg2.findRoute(STARTPosNode);
+            
+            
+
+
 
             // display result
-            Console.WriteLine(" Alg 1 route:");
+            /*Console.WriteLine(" Alg 1 route:");
             if (alg1Result != null)
             {
                 
-                /*List<int[]> resultList = result.convertToList();*/
+                *//*List<int[]> resultList = result.convertToList();*//*
                 foreach (int[] node in alg1Result)
                 {
                     Console.Write("({0},{1}), ", node[0], node[1]);
@@ -332,13 +342,13 @@ namespace maze
             else
             {
                 Console.WriteLine("No Exit Found");
-            }
+            }*/
 
-            Console.WriteLine(" Alg 2 route:");
+            /*Console.WriteLine(" Alg 2 route:");
             if (alg2Result != null)
             {
 
-                /*List<int[]> resultList = result.convertToList();*/
+                *//*List<int[]> resultList = result.convertToList();*//*
                 foreach (int[] node in alg2Result)
                 {
                     Console.Write("({0},{1}), ", node[0], node[1]);
@@ -348,9 +358,44 @@ namespace maze
             else
             {
                 Console.WriteLine("No Exit Found");
+            }*/
+
+            DateTime depthFirstStart = DateTime.Now;
+
+            for (int i = 0; i < 10; i++)
+            {
+                DateTime start;
+                List<int[]> alg1Result = Alg1.findRoute(STARTPos);
+                DateTime end;
+                //Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMilliseconds);
             }
+            DateTime depthFirstEnd = DateTime.Now;
+
+            long depthFirstDuration = (long)(depthFirstEnd - depthFirstStart).TotalMilliseconds;
+            long depthFirstAVG = depthFirstDuration / 10;
+
+            DateTime breadthFirstStart = DateTime.Now;
+
+            for (int i = 0; i < 10; i++)
+            {
+                DateTime Start;
+                List<int[]> alg1Result = Alg2.findRoute(STARTPosNode);
+                DateTime End;
+            }
+            DateTime breadthFirstEnd = DateTime.Now;
+
+
+
+            long breadthFirstDuration = (long)(breadthFirstEnd - breadthFirstStart).TotalMilliseconds;
+            long breadthFirstAVG = breadthFirstDuration / 10;
+
+            Console.WriteLine("bubble Sort took {0} miliseconds on avaerage", depthFirstAVG);
+            Console.WriteLine("Stack Sort took {0} miliseconds on avaerage", breadthFirstAVG);
+
+
             // test
-            // 
+            //
+
 
 
 
