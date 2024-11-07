@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Project2
-build_property.ProjectDir = C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Project2\
+build_property.ProjectDir = C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

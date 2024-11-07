@@ -17,12 +17,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -33,8 +29,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\week4Work\\PlastesAndStacks\\Program.cs",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAGUAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T15:05:46.401Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T15:05:46.401Z"
             },
             {
               "$type": "Document",
@@ -44,7 +39,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAlwFMAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAHIBAAAAAAAAAAAYwIUBAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T13:41:57.138Z",
               "EditorCaption": ""
