@@ -1,0 +1,15 @@
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.AssemblyInfoInputs.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.AssemblyInfo.cs
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.csproj.CoreCompileInputs.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.sourcelink.json
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\bin\Debug\net8.0\Project2V3.exe
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\bin\Debug\net8.0\Project2V3.deps.json
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\bin\Debug\net8.0\Project2V3.runtimeconfig.json
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\bin\Debug\net8.0\Project2V3.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\bin\Debug\net8.0\Project2V3.pdb
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\refint\Project2V3.dll
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.pdb
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\Project2V3.genruntimeconfig.cache
+C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project2\Project2V3\obj\Debug\net8.0\ref\Project2V3.dll
