@@ -1,0 +1,21 @@
+ bin packing psudo code
+
+items = {...} // data set
+binSize = 130
+fitnessimprove = true
+// initial solution
+numBins =  Ceil ((sum(items) / (binSizey))
+currentSolution = {}
+for i from 0 to length(items):
+	currentSolution[i] = randomInt(from 0 to numNins)
+end loop
+currentFitness = calcFitness(currentSolution)
+
+while (fitnessimprove):
+	newSolution = smallChange(currentSolution)
+	newFitness = calcFitness(newSolution)
+	if(newFitness > currentFitness):
+		currentSolution = newSolution
+	end if
+OUT currentSolution
+
