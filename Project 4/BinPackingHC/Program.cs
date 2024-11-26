@@ -23,7 +23,7 @@ public class BinPackingHC
         this.dataSet = dataSet;
         this.binCapacity = binCapacity;
         this.numChanges = (int)Math.Round((dataSet.Length * 0.2), MidpointRounding.ToPositiveInfinity);
-        this.tolerance = 1000000;
+        this.tolerance = 100000;
 
     }
     public BinPackingHC(string dataSetFilePath, double binCapacity)
@@ -33,7 +33,7 @@ public class BinPackingHC
         this.dataSet = Array.ConvertAll<string, double>(temp, str => Convert.ToDouble(str));
         this.binCapacity = binCapacity;
         this.numChanges = (int)Math.Round((dataSet.Length * 0.2), MidpointRounding.ToPositiveInfinity);
-        this.tolerance = 1000000;
+        this.tolerance = 100000;
         
 
     }
@@ -133,7 +133,7 @@ public class BinPackingHC
                 //we want to exhuast every posibilteies at that number of bins before we add a bin hennce the third condition
                 numBins++;
                 noChangeCount = 0;
-                Console.WriteLine("num bins incresed to {0} ", numBins); //test
+                //Console.WriteLine("num bins incresed to {0} ", numBins); //test
             }
             else
             {
@@ -160,10 +160,44 @@ public class BinPackingHC
 
 
     }
+    public void writeSolToFile(string filePath, BinPackingSolution solution, bool[] outVar)
+    {
+        string[] outStringArr = new string[5];
+        outStringArr[0] = outVar[0]? string.Join(", ", solution.solution) : "";
+        outStringArr[1] = outVar[1] ? solution.fitness.ToString() : "";
+        outStringArr[2] = outVar[2] ? solution.iterations.ToString() : "";
+        outStringArr[3] = outVar[3] ? solution.bins.Count().ToString() : "";
+        outStringArr[4] = outVar[4] ? string.Join(", ", solution.bins) : "";
+        string outString = string.Join("; ", outStringArr) + "\n";
+        File.AppendAllText(filePath,outString );
+
+    }
+
+
     private double[] dataSet;
     private double binCapacity;
     private int numChanges;
     private int tolerance; 
+}
+
+public static class BinPackingHC_Tests
+{
+    public static void getBins_test(int[][] test_soulutions, double[] test_dataSet, double test_binSize, string filePath)
+    {
+        BinPackingHC test1 = new BinPackingHC(test_dataSet, test_binSize);
+        File.AppendAllText(filePath, "--- getbins() test ---\n");
+        foreach (int[] test_sol in test_soulutions)
+        {
+            try
+            {
+                File.AppendAllText(filePath, string.Join(',', test1.getbins(test_sol, test_dataSet))+"\n");
+            }
+            catch
+            {
+                File.AppendAllText(filePath, "error\n");
+            }
+        }
+    }
 }
 
 namespace binPacking
@@ -176,7 +210,40 @@ namespace binPacking
             string dataSetPath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\dataset.csv";
             double binSize = 130;
             BinPackingHC sol1 = new BinPackingHC(dataSetPath, binSize);
-            sol1.start("C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\test5.txt");
+            // for unit testing
+            string unitTests_filePath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\unitTests.txt";
+            int[][] testSolutions = 
+            {
+                new int[] { 1, 2, 2, 1, 3 },
+                new int[] {2,1,3,2,3},
+                new int[] {1,2,3,4, 5 },
+                new int[] {1,1,1,1, 1 },
+                new int[] { 1 },
+                new int[] {1, 2 },
+                new int[] { -1, -2, -3, -4, -5,},
+                new int[] {12,3,42,56,2,32, },
+                new int[] {1,2,3,4,5,6,},
+            };
+
+            double[] test_dataSet = { 4, 2, 3, 1, 2, };
+            double test_BinSize = 5;
+
+            BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet,test_BinSize, )
+            
+            
+            
+            
+            // for System testing
+            string outFilePath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\Results.txt";
+
+            bool[] outVar = { true, true, true, true, true };
+            for(int i = 0; i < 100; i++)
+            {
+                BinPackingSolution res = sol1.start();
+                sol1.writeSolToFile(outFilePath,res,outVar);
+            }
+
+            //sol1.start();
             //Console.WriteLine("Solution Found with Fitness: {0} and {1} number of bins, after {2} iterations",solution.fitness, solution.bins.Count(), solution.iterations);
         }
     }
