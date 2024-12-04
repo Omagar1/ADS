@@ -75,11 +75,11 @@ namespace Project3
             };
             unweightedGraph testGraph = new unweightedGraph(adjacenies);
 
-            Dictionary<string, double> result = findBestScore(testGraph);
-            Console.WriteLine("the best node is {0} with a score of: {1}", result.Keys.ToArray()[0], result.Values.ToArray()[0]);
+            KeyValuePair<string, double> result = findBestScore(testGraph);
+            Console.WriteLine("the best node is {0} with a score of: {1}", result.Key, result.Value);
 
         }
-        public static Dictionary<string, double> findBestScore(unweightedGraph graph)
+        public static KeyValuePair<string, double> findBestScore(unweightedGraph graph)
         {
             double bestScore = 0;
             string? bestNode = null;
@@ -93,7 +93,7 @@ namespace Project3
                     bestNode = node.Key;
                 }
             }
-            return new Dictionary<string, double> { { bestNode, bestScore } }; 
+            return new KeyValuePair<string, double>  ( bestNode, bestScore ); 
         }
 
         public static double calcScore(string scoreNode, unweightedGraph graph)

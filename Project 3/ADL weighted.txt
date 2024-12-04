@@ -1,6 +1,6 @@
-// for non weighted
-class unweightedGraph:
-	let nodes be a adjacency list of all nodes in graph and their connections 
+// for weighted
+class weightedGraph:
+	let nodes be a adjacency list of all nodes in graph and their connections with weights I.E. A : {{B, 1},{C, 1}, {E, 5}}
 	
 	// function to traverse to all other nodes using a breadth first technique  
 	function findRoutes(startNode):
@@ -53,7 +53,3 @@ function calcScore(scoreNode, graph):
 	end foreach
 	return numNodes-1 / sum of distanceToNode
 end function
-
-
-
-			
