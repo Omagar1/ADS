@@ -1,0 +1,56 @@
+// for non weighted
+class unweightedGraph:
+	let nodes be a adjacency list of all nodes in graph and their connections 
+	
+	// function to traverse to all other nodes using a breadth first technique  
+	function findRoutes(startNode):
+		let toVist be a queue of nodes in order of next to visit
+		let visited be a dictionary of edges from one node to another stored as nodeTo, nodeFrom
+		add startNode to toVist
+		add startNode : null to visited
+		
+		foreach node in toVist:
+			foreach adjacentNode in node's connections
+				if adjacentNode is not in toVisit:
+					add adjacentNode to toVist
+					add adjacentNode : node to visited 
+				end if
+			end foreach
+		end foreach
+		return visited
+	endfunction
+	
+	function findRoute(start, routes)
+		let route be a list of nodes
+		let nextNode = start
+		add start to route
+		while nextNode is not null:
+			add routes[nextnode]
+			set nextNode = routes[nextnode]
+		end while
+		return route				
+
+
+ 
+let bestScore = 0
+let bestNode = Null
+foreach node in graph:
+	let newScore = call calcScore(node)
+	if newScore > best score:
+		bestscore =  newScore
+		bestNode = node
+	end if
+end foreach
+
+
+function calcScore(scoreNode, graph):
+	let distanceToNode = []
+	let routes = call findRoutes(scoreNode)
+	foreach node in graph:
+		if node is not score node: 
+			 add  (call length(findRoute(node, routes)) ) to distanceToNode 
+		endif
+	end foreach
+	return numNodes-1 / sum of distanceToNode
+end function
+			
