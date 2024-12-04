@@ -11,7 +11,7 @@ class unweightedGraph:
 		
 		foreach node in toVist:
 			foreach adjacentNode in node's connections
-				if adjacentNode is not in toVisit:
+				if adjacentNode is not in visited:
 					add adjacentNode to toVist
 					add adjacentNode : node to visited 
 				end if
@@ -25,8 +25,8 @@ class unweightedGraph:
 		let nextNode = start
 		add start to route
 		while nextNode is not null:
-			add routes[nextnode]
-			set nextNode = routes[nextnode]
+			add routes[nextNode] to route
+			set nextNode = routes[nextNode]
 		end while
 		return route				
 
