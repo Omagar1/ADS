@@ -317,11 +317,21 @@ namespace maze
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             };
 
+            int[,] maze3 = {
+                { 1,0,1,1,1,1,1,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,0,0,0,0,0,1},
+                { 1,0,0,0,0,0,0,0},
+                { 1,1,1,1,1,1,1,1}
+            };
+
 
 
             int[] STARTPos = { 0, 1 };
-            depthFirst Alg1 = new depthFirst(maze2);
-            breadthFirst Alg2 = new breadthFirst(maze2);
+            depthFirst Alg1 = new depthFirst(maze3);
+            breadthFirst Alg2 = new breadthFirst(maze3);
             Node STARTPosNode = new Node(STARTPos);
             List<int[]>? alg1Result = Alg1.findRoute(STARTPos);
             List<int[]>? alg2Result = Alg2.findRoute(STARTPosNode);
@@ -361,7 +371,7 @@ namespace maze
 
             // ---------- Time Trial Code ----------
 
-            DateTime test = DateTime.Now; // to remove weird spike
+            /*DateTime test = DateTime.Now; // to remove weird spike
 
             Console.WriteLine("\nDepth First\n");
 
@@ -389,17 +399,17 @@ namespace maze
                 DateTime end = DateTime.Now;
                 breadthFirstArray[i] = (long)(end - start).TotalMicroseconds;
                 Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMicroseconds);
-            }
+            }*/
 
             
 
 
 
 
-            // display
+            /*// display
             Console.WriteLine("Depth First Search took {0} Microseconds on avaerage", depthFirstArray.Average());
             Console.WriteLine("Breadth First took {0} Microseconds on avaerage", breadthFirstArray.Average());
-
+*/
 
             // test
             //

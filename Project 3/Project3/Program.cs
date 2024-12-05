@@ -48,6 +48,23 @@ class unweightedGraph
         }
         return route;
     }
+    public double calcScore(string scoreNode)
+    {
+
+        List<double> distanceToNode = new List<double>();
+        Dictionary<string, string> routes = findRoutes(scoreNode);
+
+        foreach (KeyValuePair<string, List<string>> node in nodes)
+        {
+            if (node.Key != scoreNode)
+            {
+                distanceToNode.Add(findRoute(node.Key, routes).Count() - 1); // -1 as the route will contain the score node as well and we want to find the distance to the node
+
+            }
+        }
+
+        return (nodes.Count() - 1) / distanceToNode.Sum();
+    }
     public Dictionary<string, List<string>> getNodes()
     {
         return nodes;   
@@ -55,6 +72,75 @@ class unweightedGraph
 
     private Dictionary<string, List<string>> nodes;
 }
+
+class weightedGraph
+{
+    public weightedGraph(Dictionary<string, Dictionary<string, int>> nodes)
+    {
+        this.nodes = nodes;
+    }
+    public Dictionary<string, KeyValuePair<string, int>> findRoutes(string startNode)
+    {
+        Queue<string> toVisit = new Queue<string>();
+        Dictionary<string, KeyValuePair<string, int>> visited = new Dictionary<string, KeyValuePair<string, int>>();
+        toVisit.Enqueue(startNode);
+        visited.Add(startNode, new KeyValuePair<string, int>(string.Empty, 0));
+        string currentNode;
+
+        while (toVisit.Count() > 0)
+        {
+            currentNode = toVisit.Dequeue();
+            foreach (KeyValuePair<string, int> adjacentNode in this.nodes[currentNode])
+            {
+                if (!visited.Keys.Contains(adjacentNode.Key))
+                {
+                    toVisit.Enqueue(adjacentNode.Key);
+                    visited.Add(adjacentNode.Key, new KeyValuePair<string, int>(currentNode, nodes[currentNode][adjacentNode.Key]));
+                }
+            }
+
+        }
+        return visited;
+    }
+    public Dictionary<string, int> findRoute(string start, Dictionary<string, KeyValuePair<string, int>> routes)
+    {
+        Dictionary<string, int> route = new Dictionary<string, int>();
+        string nextNode = start;
+        route.Add(start, 0);
+        while (routes[nextNode].Key != ""  )
+        {
+            route.Add(routes[nextNode].Key, routes[nextNode].Value);
+            nextNode = routes[nextNode].Key;
+        }
+        return route;
+    }
+    public double calcScore(string scoreNode)
+    {
+
+        List<double> distanceToNode = new List<double>();
+        Dictionary<string, KeyValuePair<string, int>> routes = findRoutes(scoreNode);
+
+        foreach (KeyValuePair<string, Dictionary<string, int>> node in nodes)
+        {
+            if (node.Key != scoreNode)
+            {
+                distanceToNode.Add(findRoute(node.Key, routes).Values.Sum() - 1); 
+
+            }
+        }
+
+        return (nodes.Count() - 1) / distanceToNode.Sum();
+    }
+    public Dictionary<string, Dictionary<string, int>> getNodes()
+    {
+        return nodes;
+    }
+
+    private Dictionary<string, Dictionary<string, int>> nodes;
+}
+
+
+
 namespace Project3
 {
     class Project3
@@ -62,7 +148,7 @@ namespace Project3
         public static void Main()
         {
             
-            Dictionary<string, List<string>> adjacenies = new Dictionary<string, List<string>>()
+            Dictionary<string, List<string>> adjacenies_unweighted = new Dictionary<string, List<string>>()
             {
                 {"Alicia" , new List<string> {"Britney"} },
                 {"Britney", new List<string>{ "Alicia" , "Claire" } },
@@ -73,8 +159,24 @@ namespace Project3
                 {"Harry" , new List<string> { "Diana", "Gloria","Edward" } },
                 {"Gloria", new List<string> { "Fred", "Harry", "Edward" } },
             };
-            unweightedGraph testGraph = new unweightedGraph(adjacenies);
+            Dictionary<string, Dictionary<string, int>> adjacenies_weighted = new Dictionary<string, Dictionary<string, int>>()
+            {
+                {"A" , new  Dictionary<string,int> { { "B", 1 } , { "C", 1 }, { "E", 5 } } },
+                {"B" , new  Dictionary<string,int> { { "A", 1 } , { "C", 4 }, { "E", 1 }, { "H", 1 } } },
+                {"C" , new  Dictionary<string,int> { { "A", 1 } , { "B", 4 }, { "E", 1 }, { "D", 3 } } },
+                {"D" , new  Dictionary<string,int> { { "C", 3 } , { "E", 2 }, { "G", 5 }, { "F", 1 } } },
+                {"E" , new  Dictionary<string,int> { { "A", 5 } , { "B", 1 }, { "C", 1 } , { "D", 2 }, { "G", 2 }, } },
+                {"F" , new  Dictionary<string,int> { { "D", 1 } , { "G", 1 }, } },
+                {"G" , new  Dictionary<string,int> { { "B", 1 } , { "D", 5 } , { "E", 2 }, { "F", 1 }, } },
+                {"H" , new  Dictionary<string,int> { { "B", 1 } , { "G", 2 }, { "I", 3 }, } },
+                {"I" , new  Dictionary<string,int> { { "H", 3 } , { "J", 3 }, } },
+                {"J" , new  Dictionary<string,int> { { "I", 3 }, } },
 
+            };
+
+
+            /*unweightedGraph testGraph = new unweightedGraph(adjacenies_unweighted);*/
+            weightedGraph testGraph = new weightedGraph(adjacenies_weighted);
             KeyValuePair<string, double> result = findBestScore(testGraph);
             Console.WriteLine("the best node is {0} with a score of: {1}", result.Key, result.Value);
 
@@ -86,7 +188,7 @@ namespace Project3
             
             foreach (KeyValuePair<string, List<string>> node in graph.getNodes())
             {
-                double newScore = calcScore(node.Key, graph);
+                double newScore = graph.calcScore(node.Key);
                 if (newScore > bestScore)
                 {
                     bestScore = newScore;
@@ -95,25 +197,23 @@ namespace Project3
             }
             return new KeyValuePair<string, double>  ( bestNode, bestScore ); 
         }
-
-        public static double calcScore(string scoreNode, unweightedGraph graph)
+        public static KeyValuePair<string, double> findBestScore(weightedGraph graph)
         {
-            
-            List<double> distanceToNode = new List<double>();
-            Dictionary<string, string> routes = graph.findRoutes(scoreNode);
-            Dictionary<string, List<string>> nodes = graph.getNodes();
+            double bestScore = 0;
+            string? bestNode = null;
 
-            foreach (KeyValuePair<string, List<string>> node in nodes)
+            foreach (KeyValuePair<string, Dictionary<string,int>> node in graph.getNodes())
             {
-                if (node.Key != scoreNode)
+                double newScore = graph.calcScore(node.Key);
+                if (newScore > bestScore)
                 {
-                    distanceToNode.Add(graph.findRoute(node.Key, routes).Count()-1); // -1 as the route will contain the score node as well and we want to find the distance to the node
-
+                    bestScore = newScore;
+                    bestNode = node.Key;
                 }
             }
-
-            return (nodes.Count() - 1) / distanceToNode.Sum();
+            return new KeyValuePair<string, double>(bestNode, bestScore);
         }
+
 
     }
 }
