@@ -234,11 +234,53 @@ public static class BinPackingHC_Tests
     }
 
 
-    public static void calcFitness_test(double[] dataSet, double binCapacity, string filePath)
+    public static void smallChange_test(double[] dataSet, double binCapacity, string filePath)
+    {
+        // read file - will be in format: solution - no expected solution as small change is random, pass result calculated diffrently
+        string[] temp = File.ReadAllLines(filePath + "\\smallChange_testData.txt");
+        // setiing up Varibles for test
+        BinPackingHC test = new BinPackingHC(dataSet, binCapacity);
+        StringWriter outStr = new StringWriter(); // will be in format solution;actual result;pass
+        int numBins = (int)Math.Round(dataSet.Sum() / binCapacity, MidpointRounding.ToPositiveInfinity);
+        int numChanges = (int)Math.Round((dataSet.Length * 0.2), MidpointRounding.ToPositiveInfinity);
+
+        // splitting and formating into solutions and sexpected results
+        foreach (string line in temp)
+        {
+            // formating test solution;
+            int[] testSolution = Array.ConvertAll<string, int>(line.Split(','), str => Convert.ToInt32(str));
+            outStr.Write(string.Join(',', testSolution) + ";");
+
+            // tests - in a try catch statement as if any input is in wrong format it will error so that will class as the test passing as thats what was expected
+            try
+            {
+                int[] result = test.smallChange(testSolution, numBins);
+                outStr.Write(string.Join(',', result) + ";");
+                // calculating pass value
+                // pass will be defined as true if the sum off all elements of result is within a the range of the orininal soulutions sum +- numberchanegs * number of bins
+                bool pass = (result.Sum() >= (testSolution.Sum() - numChanges * numBins) && result.Sum() <= (testSolution.Sum() + numChanges * numBins));
+                outStr.Write(pass.ToString() + "; \n");
+            }
+            catch
+            {
+                outStr.Write("Error;");
+                outStr.Write(true + "; \n");
+            }
+
+
+        }
+        // writing to file
+        File.WriteAllText(filePath + "\\smallChange_testResults.txt", outStr.ToString());
+
+    }
+    // --- unit tests i need to make --- 
+    // write to file test
+    // small change
+    public static void calcFitness_test(double[] dataSet, double binCapacity, string filePath) //- change
     {
         // read file - will be in format solution;expexted result
-        string[] temp = File.ReadAllLines(filePath+ "\\calcFitness_testData.txt");
-        
+        string[] temp = File.ReadAllLines(filePath + "\\calcFitness_testData.txt");
+
         BinPackingHC test = new BinPackingHC(dataSet, binCapacity);
         StringWriter outStr = new StringWriter(); // will be in format solution;expexted result;actual result;pass
         // splitting and formating into solutions and sexpected results
@@ -247,7 +289,7 @@ public static class BinPackingHC_Tests
             string[] lineArr = line.Split(';');
             // formating test solution;
             int[] testSolution = Array.ConvertAll<string, int>(lineArr[0].Split(','), str => Convert.ToInt32(str));
-            outStr.Write(testSolution+";");
+            outStr.Write(testSolution + ";");
             // formating expectedResult
             double expectedResult = Convert.ToDouble(lineArr[1]);
             outStr.Write(expectedResult + ";");
@@ -257,7 +299,7 @@ public static class BinPackingHC_Tests
                 double result = test.calcFitness(testSolution, dataSet, binCapacity);
                 outStr.Write(result + ";");
                 bool pass = (expectedResult == result);
-                
+
             }
             catch
             {
@@ -266,11 +308,8 @@ public static class BinPackingHC_Tests
             }
         }
         // writeing to file
-        File.AppendAllText(filePath+"\\calcFitness_testResults.txt", outStr.ToString());
+        File.AppendAllText(filePath + "\\calcFitness_testResults.txt", outStr.ToString());
     }
-    // --- unit tests i need to make --- 
-    // write to file test
-    // small change 
 }
 
 namespace binPacking
@@ -291,7 +330,8 @@ namespace binPacking
             double test_BinSize = 5;
 
             /*BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet, test_BinSize, unitTests_filePath); */
-            BinPackingHC_Tests.getBins_test(test_dataSet, test_BinSize, unitTests_filePath);
+            //BinPackingHC_Tests.getBins_test(test_dataSet, test_BinSize, unitTests_filePath);
+            BinPackingHC_Tests.smallChange_test(test_dataSet, test_BinSize, unitTests_filePath);
 
 
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BinPackingHC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af45329b31f33deef52d37e4dfd10cc954c82270")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d714db432903aa65120c9928b835d9650a58a6d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("BinPackingHC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BinPackingHC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
