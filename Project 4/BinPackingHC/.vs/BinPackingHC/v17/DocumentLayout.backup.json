@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\BinPackingHC\\",
+  "WorkspaceRootPath": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\BinPackingHC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3030E2F1-4CC6-4EA4-8725-9D2019604BE0}|BinPackingHC.csproj|c:\\users\\josia\\documents\\uni stuff\\cs\\24 25\\algorithms and data structures\\coursework\\ads\\project 4\\binpackinghc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3030E2F1-4CC6-4EA4-8725-9D2019604BE0}|BinPackingHC.csproj|c:\\users\\fiercepc\\documents\\github\\ads\\project 4\\binpackinghc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3030E2F1-4CC6-4EA4-8725-9D2019604BE0}|BinPackingHC.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\BinPackingHC\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\BinPackingHC\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\BinPackingHC\\Program.cs",
+              "ToolTip": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\BinPackingHC\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAcwK8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAiwCQBAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T10:12:27.531Z",
               "EditorCaption": ""

@@ -13,3 +13,18 @@ C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\Cours
 C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.pdb
 C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.genruntimeconfig.cache
 C:\Users\josia\Documents\UNI Stuff\CS\24 25\Algorithms and Data Structures\CourseWork\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\ref\BinPackingHC.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.AssemblyInfoInputs.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.AssemblyInfo.cs
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.csproj.CoreCompileInputs.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.sourcelink.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\refint\BinPackingHC.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.pdb
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\bin\Debug\net8.0\BinPackingHC.exe
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\bin\Debug\net8.0\BinPackingHC.deps.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\bin\Debug\net8.0\BinPackingHC.runtimeconfig.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\bin\Debug\net8.0\BinPackingHC.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\bin\Debug\net8.0\BinPackingHC.pdb
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\BinPackingHC.genruntimeconfig.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project 4\BinPackingHC\obj\Debug\net8.0\ref\BinPackingHC.dll

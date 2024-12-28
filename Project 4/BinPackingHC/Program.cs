@@ -1,8 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Formats.Asn1;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ObjectiveC;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -93,6 +96,7 @@ public class BinPackingHC
         int iterations = 0;
         int[] currentSolution = new int[dataSet.Length];
 
+        // generating initial solution
         for (int i = 0; i < currentSolution.Length; i++)
         {
             currentSolution[i] = random.Next(1,numBins);
@@ -100,7 +104,7 @@ public class BinPackingHC
         double currentFitness = calcFitness(currentSolution, dataSet, binCapacity);
 
 
-        // writing to a file
+        // writing to file
         if (optputFileName != null)
         {
             string outStr = "\n initial solution: " + string.Join(", ", currentSolution) + " with fitness:" + currentFitness.ToString() + "\n";
@@ -110,12 +114,13 @@ public class BinPackingHC
 
 
         while (noChangeCount < tolerance) 
-        {
+        {   
+            // gettining new solution
             int[] newSolution = smallChange(currentSolution, numBins);
             double newFitness = calcFitness(newSolution, dataSet, binCapacity);
             if (newFitness > currentFitness)
             {
-                // better solution found
+                // case: better solution found
                 currentSolution = newSolution;
                 currentFitness = newFitness;
                 noChangeCount = 0;
@@ -129,7 +134,7 @@ public class BinPackingHC
             else if (currentFitness <= 0 && numBins < dataSet.Length  && noChangeCount >= tolerance - 1)
             {
                 //in case of where a solution without overflow is found
-                //we know the worst case is one bin per item so check teh program dosent go past this hence seccond condition
+                //we know the worst case is one bin per item so check the program dosent go past this hence seccond condition
                 //we want to exhuast every posibilteies at that number of bins before we add a bin hennce the third condition
                 numBins++;
                 noChangeCount = 0;
@@ -182,22 +187,90 @@ public class BinPackingHC
 
 public static class BinPackingHC_Tests
 {
-    public static void getBins_test(int[][] test_soulutions, double[] test_dataSet, double test_binSize, string filePath)
+    public static void getBins_test(double[] dataSet, double binCapacity, string filePath)
     {
-        BinPackingHC test1 = new BinPackingHC(test_dataSet, test_binSize);
-        File.AppendAllText(filePath, "--- getbins() test ---\n");
-        foreach (int[] test_sol in test_soulutions)
+        // read file - will be in format solution;expexted result
+        string[] temp = File.ReadAllLines(filePath + "\\getBins_testData.txt");
+
+        BinPackingHC test = new BinPackingHC(dataSet, binCapacity);
+        StringWriter outStr = new StringWriter(); // will be in format solution;expexted result;actual result;pass
+        // splitting and formating into solutions and sexpected results
+        foreach (string line in temp)
         {
+            string[] lineArr = line.Split(';');
+            // formating test solution;
+            int[] testSolution = Array.ConvertAll<string, int>(lineArr[0].Split(','), str => Convert.ToInt32(str));
+            outStr.Write(string.Join(',', testSolution) + ";");
+            // formating expectedResult
+           
+            Dictionary<int, double> expectedResult = new Dictionary<int, double>();
+            string[] expectedResultKVPArr = lineArr[1].Split(',');
+            foreach(string kVPStr  in expectedResultKVPArr)
+            {    
+                string[] kVPArr = kVPStr.Split(':');
+                expectedResult.Add(Convert.ToInt32(kVPArr[0]), Convert.ToInt32(kVPArr[1])); 
+            }
+            outStr.Write(string.Join(",", expectedResult.Select(kvp => kvp.Key + ":" + kvp.Value)) + ";");
+
+            // tests - in a try catch statement as if any input is in wrong format it will error so that will class as the test passing as thats what was expected
             try
             {
-                File.AppendAllText(filePath, string.Join(',', test1.getbins(test_sol, test_dataSet))+"\n");
+                Dictionary<int, double> result = test.getbins(testSolution, dataSet); 
+                outStr.Write(string.Join(",", result.Select(kvp => kvp.Key + ":" + kvp.Value)) + ";");
+                bool pass = expectedResult.Count() == result.Count() && !expectedResult.Except(result).Any();
+                outStr.Write(pass.ToString() + "; \n");
             }
             catch
             {
-                File.AppendAllText(filePath, "error\n");
+                outStr.Write("Error;");
+                outStr.Write(true + "; \n");
+            }
+
+
+        }
+        // writing to file
+        File.WriteAllText(filePath + "\\getBins_testResults.txt", outStr.ToString());
+        
+    }
+
+
+    public static void calcFitness_test(double[] dataSet, double binCapacity, string filePath)
+    {
+        // read file - will be in format solution;expexted result
+        string[] temp = File.ReadAllLines(filePath+ "\\calcFitness_testData.txt");
+        
+        BinPackingHC test = new BinPackingHC(dataSet, binCapacity);
+        StringWriter outStr = new StringWriter(); // will be in format solution;expexted result;actual result;pass
+        // splitting and formating into solutions and sexpected results
+        foreach (string line in temp)
+        {
+            string[] lineArr = line.Split(';');
+            // formating test solution;
+            int[] testSolution = Array.ConvertAll<string, int>(lineArr[0].Split(','), str => Convert.ToInt32(str));
+            outStr.Write(testSolution+";");
+            // formating expectedResult
+            double expectedResult = Convert.ToDouble(lineArr[1]);
+            outStr.Write(expectedResult + ";");
+            // tests - in a try catch statement as if any input is in wrong format it will error so that will class as the test passing as thats what was expected
+            try
+            {
+                double result = test.calcFitness(testSolution, dataSet, binCapacity);
+                outStr.Write(result + ";");
+                bool pass = (expectedResult == result);
+                
+            }
+            catch
+            {
+                outStr.Write("Error;");
+                outStr.Write(true + "; \n");
             }
         }
+        // writeing to file
+        File.AppendAllText(filePath+"\\calcFitness_testResults.txt", outStr.ToString());
     }
+    // --- unit tests i need to make --- 
+    // write to file test
+    // small change 
 }
 
 namespace binPacking
@@ -207,41 +280,32 @@ namespace binPacking
         static void Main(string[] args)
         {
             //double[] DATASET = [55.44, 15.12, 0.77, 3.1, 95.24, 89.59, 7.12, 58.77, 78.98, 55.76, 30.34, 17.5, 44.05, 74.76, 28.4, 96.55, 87.78, 65.56, 72.91, 39.74, 39.52, 38.72, 8.12, 32.31, 12.28, 52.15, 89.93, 15.9, 3.37, 2.18];
-            string dataSetPath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\dataset.csv";
-            double binSize = 130;
-            BinPackingHC sol1 = new BinPackingHC(dataSetPath, binSize);
-            // for unit testing
-            string unitTests_filePath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\unitTests.txt";
-            int[][] testSolutions = 
-            {
-                new int[] { 1, 2, 2, 1, 3 },
-                new int[] {2,1,3,2,3},
-                new int[] {1,2,3,4, 5 },
-                new int[] {1,1,1,1, 1 },
-                new int[] { 1 },
-                new int[] {1, 2 },
-                new int[] { -1, -2, -3, -4, -5,},
-                new int[] {12,3,42,56,2,32, },
-                new int[] {1,2,3,4,5,6,},
-            };
+            //string dataSetPath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\dataset.csv";
+            //double binSize = 130;
+            //BinPackingHC sol1 = new BinPackingHC(dataSetPath, binSize);
 
-            double[] test_dataSet = { 4, 2, 3, 1, 2, };
+
+            // ---- for unit testing --- 
+            string unitTests_filePath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\UnitTests";
+            double[] test_dataSet = { 4, 2, 3, 1, 2};
             double test_BinSize = 5;
 
-            BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet,test_BinSize, )
-            
-            
-            
-            
+            /*BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet, test_BinSize, unitTests_filePath); */
+            BinPackingHC_Tests.getBins_test(test_dataSet, test_BinSize, unitTests_filePath);
+
+
+
+
+
             // for System testing
-            string outFilePath = "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project 4\\Results.txt";
+            /*string outFilePath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\Results.txt";
 
             bool[] outVar = { true, true, true, true, true };
             for(int i = 0; i < 100; i++)
             {
                 BinPackingSolution res = sol1.start();
                 sol1.writeSolToFile(outFilePath,res,outVar);
-            }
+            }*/
 
             //sol1.start();
             //Console.WriteLine("Solution Found with Fitness: {0} and {1} number of bins, after {2} iterations",solution.fitness, solution.bins.Count(), solution.iterations);
