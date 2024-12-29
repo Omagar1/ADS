@@ -41,9 +41,9 @@ public class BinPackingHC
 
     }
 
-    public Dictionary<int,double> getbins(int[] soulution, double[] dataSet)
+    public Dictionary<int,double> getbins(int[] soulution, double[] dataSet) // totals size of all items assigned to each bin by a solution
     {
-        Dictionary<int, double> bins = new Dictionary<int, double>();
+        Dictionary<int, double> bins = new Dictionary<int, double>(); // in format binNum:total size of intems in bin
         for (int i = 0; i < soulution.Length; i++)
         {
             if (bins.ContainsKey(soulution[i]))
@@ -165,7 +165,7 @@ public class BinPackingHC
 
 
     }
-    public void writeSolToFile(string filePath, BinPackingSolution solution, bool[] outVar)
+    public void writeSolToFile(string filePath, BinPackingSolution solution, bool[] outVar) // used for system tests 
     {
         string[] outStringArr = new string[5];
         outStringArr[0] = outVar[0]? string.Join(", ", solution.solution) : "";
@@ -273,33 +273,33 @@ public static class BinPackingHC_Tests
         File.WriteAllText(filePath + "\\smallChange_testResults.txt", outStr.ToString());
 
     }
-    // --- unit tests i need to make --- 
-    // write to file test
-    // small change
-    public static void calcFitness_test(double[] dataSet, double binCapacity, string filePath) //- change
+    
+    public static void calcFitness_test(double[] dataSet, double binCapacity, string filePath) 
     {
         // read file - will be in format solution;expexted result
         string[] temp = File.ReadAllLines(filePath + "\\calcFitness_testData.txt");
 
         BinPackingHC test = new BinPackingHC(dataSet, binCapacity);
         StringWriter outStr = new StringWriter(); // will be in format solution;expexted result;actual result;pass
+        const int decimalPlacesToCompare = 3; 
         // splitting and formating into solutions and sexpected results
         foreach (string line in temp)
         {
             string[] lineArr = line.Split(';');
             // formating test solution;
             int[] testSolution = Array.ConvertAll<string, int>(lineArr[0].Split(','), str => Convert.ToInt32(str));
-            outStr.Write(testSolution + ";");
+            outStr.Write(string.Join(',',testSolution) + ";");
             // formating expectedResult
-            double expectedResult = Convert.ToDouble(lineArr[1]);
-            outStr.Write(expectedResult + ";");
+            double expectedResult = Math.Round(Convert.ToDouble(lineArr[1]), decimalPlacesToCompare);
+            outStr.Write(expectedResult.ToString() + ";");
             // tests - in a try catch statement as if any input is in wrong format it will error so that will class as the test passing as thats what was expected
             try
             {
-                double result = test.calcFitness(testSolution, dataSet, binCapacity);
-                outStr.Write(result + ";");
-                bool pass = (expectedResult == result);
 
+                double result = Math.Round(test.calcFitness(testSolution, dataSet, binCapacity), decimalPlacesToCompare);
+                outStr.Write(result.ToString() + ";");
+                bool pass = result == expectedResult;
+                outStr.Write(pass.ToString() + "; \n");
             }
             catch
             {
@@ -307,8 +307,8 @@ public static class BinPackingHC_Tests
                 outStr.Write(true + "; \n");
             }
         }
-        // writeing to file
-        File.AppendAllText(filePath + "\\calcFitness_testResults.txt", outStr.ToString());
+        // writing to file
+        File.WriteAllText(filePath + "\\calcFitness_testResults.txt", outStr.ToString());
     }
 }
 
@@ -331,7 +331,8 @@ namespace binPacking
 
             /*BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet, test_BinSize, unitTests_filePath); */
             //BinPackingHC_Tests.getBins_test(test_dataSet, test_BinSize, unitTests_filePath);
-            BinPackingHC_Tests.smallChange_test(test_dataSet, test_BinSize, unitTests_filePath);
+            //BinPackingHC_Tests.smallChange_test(test_dataSet, test_BinSize, unitTests_filePath);
+            BinPackingHC_Tests.calcFitness_test(test_dataSet, test_BinSize, unitTests_filePath);
 
 
 
