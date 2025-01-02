@@ -195,25 +195,19 @@ namespace maze
                 {
                     for (int x = currentNode.position[1] - 1; x <= currentNode.position[1] + 1; x++)
                     {
-
-
                         int[] lookPos = { y, x };
-                        if (!currentNode.position.SequenceEqual(lookPos)) // to prevent current location from being consider 
+                        if (!currentNode.position.SequenceEqual(lookPos)) // to prevent current location from being considered
                         {
                             bool onEdge = !inRange(this.maze, lookPos);
                             //Console.WriteLine("is ({0},{1}) in queue: {2} ", y, x, visitedlist.Any(node => node.samePos(lookPos))); //test
-                            //
                             if (!onEdge && maze[y, x] == 0 && !currentNode.position.SequenceEqual(lookPos) && !toVisit.Any(node => node.samePos(lookPos)))
                             {
-
                                 Node lookNode = new Node(lookPos, currentNode, onEdge);
-                                //Console.WriteLine("added Node ({0},{1}) to queue", lookNode.position[0],lookNode.position[1]);
+                                //Console.WriteLine("added Node ({0},{1}) to queue", lookNode.position[0],lookNode.position[1]); // test 
                                 if (!visitedlist.Any(node => node.samePos(lookPos)))
                                 {
                                     toVisit.Enqueue(lookNode);
                                 }
-
-                                
                             }
                             else if (!isStart && onEdge) // to prevent the start being counted
                             {
@@ -308,8 +302,8 @@ namespace maze
 
         static void Main(string[] args)
         {
-
-            int[,] maze = {
+            // from assesment breif, for system test
+            int[,] maze = { 
                 { 1,0,1,1,1,1,1,1},
                 { 1,0,0,0,0,0,0,1},
                 { 1,1,1,1,1,1,0,1},
@@ -322,7 +316,7 @@ namespace maze
                 { 1,0,0,0,0,0,0,0},
                 { 1,1,1,1,1,1,1,1}
             };
-
+            // from assesment breif, for system test
             int[,] maze2 = {
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 { 1,0,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1},
@@ -338,6 +332,7 @@ namespace maze
                 { 1,0,1,0,0,1,1,1,1,1,0,1,1,1,1,0,0},
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             };
+            // to test the big O
             int[,] maze3 = {
                 { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -365,7 +360,7 @@ namespace maze
 
 
             // display result
-            Console.WriteLine(" Alg 1 route:");
+            Console.WriteLine("Depth First route:");
             if (alg1Result != null)
             {
 
@@ -380,7 +375,7 @@ namespace maze
                 Console.WriteLine("No Exit Found");
             }
 
-            Console.WriteLine(" Alg 2 route (from shortest to longest):");
+            Console.WriteLine(" Breadth First routes (from shortest to longest):");
             if (alg2Result != null)
             {
                 int i = 1; 
@@ -417,11 +412,12 @@ namespace maze
 
             // ---------- Time Trial Code ----------
 
-            DateTime test = DateTime.Now; // to remove weird spike
+            DateTime test = DateTime.Now; // to remove weird time spike from recoded data
 
             Console.WriteLine("\nDepth First\n");
 
-            long[] depthFirstArray = new long[10];
+            long[] depthFirstTimeArray = new long[10];
+            int[] depthFirstRouteLengthArray = new int[10];
 
             for (int i = 0; i < 10; i++)
             {
@@ -429,13 +425,15 @@ namespace maze
                 depthFirst alg = new depthFirst(maze2);
                 List<int[]>? algResult = alg.findRoute(STARTPos);
                 DateTime end = DateTime.Now;
-                depthFirstArray[i] = (long)(end - start).TotalMicroseconds;
+                depthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;
+                depthFirstRouteLengthArray[i] = algResult.Count; 
                 Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMicroseconds);
             }
 
             Console.WriteLine("\n Breadth First \n");
 
-            long[] breadthFirstArray = new long[10];
+            long[] breadthFirstTimeArray = new long[10];
+            int[] breadthFirstRouteLengthArray = new int[10];
 
             for (int i = 0; i < 10; i++)
             {
@@ -443,7 +441,8 @@ namespace maze
                 breadthFirst alg = new breadthFirst(maze2);
                 List<int[][]>? algResult = alg.findRoute(STARTPosNode);
                 DateTime end = DateTime.Now;
-                breadthFirstArray[i] = (long)(end - start).TotalMicroseconds;
+                breadthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;
+                breadthFirstRouteLengthArray[i] = algResult[0].Length; 
                 Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMicroseconds);
             }
 
@@ -453,8 +452,8 @@ namespace maze
 
 
             // display
-            Console.WriteLine("Depth First Search took {0} Microseconds on avaerage", depthFirstArray.Average());
-            Console.WriteLine("Breadth First took {0} Microseconds on avaerage", breadthFirstArray.Average());
+            Console.WriteLine("Depth First Search took {0} Microseconds on avaerage, with an average length of route: {1} nodes", depthFirstTimeArray.Average(),depthFirstRouteLengthArray.Average());
+            Console.WriteLine("Breadth First took {0} Microseconds on avaerage, with an average length of route: {1} nodes", breadthFirstTimeArray.Average(), breadthFirstRouteLengthArray.Average()); 
 
 
             // test
