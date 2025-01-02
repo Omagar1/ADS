@@ -1,0 +1,15 @@
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\bin\Debug\net9.0\Project2V2.exe
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\bin\Debug\net9.0\Project2V2.deps.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\bin\Debug\net9.0\Project2V2.runtimeconfig.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\bin\Debug\net9.0\Project2V2.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\bin\Debug\net9.0\Project2V2.pdb
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.AssemblyInfoInputs.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.AssemblyInfo.cs
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.csproj.CoreCompileInputs.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.sourcelink.json
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\refint\Project2V2.dll
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.pdb
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\Project2V2.genruntimeconfig.cache
+C:\Users\FiercePC\Documents\GitHub\ADS\Project2\Project2V2\obj\Debug\net9.0\ref\Project2V2.dll

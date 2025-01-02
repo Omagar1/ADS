@@ -371,45 +371,44 @@ namespace maze
 
             // ---------- Time Trial Code ----------
 
-            /*DateTime test = DateTime.Now; // to remove weird spike
+            DateTime test = DateTime.Now; // to remove weird time spike from recoded data
 
             Console.WriteLine("\nDepth First\n");
 
-            long[] depthFirstArray = new long[10];
+            long[] depthFirstTimeArray = new long[10];
+            int[] depthFirstRouteLengthArray = new int[10];
 
             for (int i = 0; i < 10; i++)
             {
                 DateTime start = DateTime.Now;
                 depthFirst alg = new depthFirst(maze2);
-                List<int[]> algResult = alg.findRoute(STARTPos);
+                List<int[]>? algResult = alg.findRoute(STARTPos);
                 DateTime end = DateTime.Now;
-                depthFirstArray[i] = (long)(end - start).TotalMicroseconds;
+                depthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;
+                depthFirstRouteLengthArray[i] = algResult.Count;
                 Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMicroseconds);
             }
 
             Console.WriteLine("\n Breadth First \n");
 
-            long[] breadthFirstArray = new long[10];
+            long[] breadthFirstTimeArray = new long[10];
+            int[] breadthFirstRouteLengthArray = new int[10];
 
             for (int i = 0; i < 10; i++)
             {
                 DateTime start = DateTime.Now;
                 breadthFirst alg = new breadthFirst(maze2);
-                List<int[]> algResult = alg.findRoute(STARTPosNode);
+                List<int[]>? algResult = alg.findRoute(STARTPosNode);
                 DateTime end = DateTime.Now;
-                breadthFirstArray[i] = (long)(end - start).TotalMicroseconds;
+                breadthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;
+                breadthFirstRouteLengthArray[i] = algResult.Count;
                 Console.WriteLine("attempt {0} took {1}", i, (long)(end - start).TotalMicroseconds);
-            }*/
+            }
 
-            
-
-
-
-
-            /*// display
-            Console.WriteLine("Depth First Search took {0} Microseconds on avaerage", depthFirstArray.Average());
-            Console.WriteLine("Breadth First took {0} Microseconds on avaerage", breadthFirstArray.Average());
-*/
+            // display
+            Console.WriteLine("Depth First Search took {0} Microseconds on avaerage, with an average length of route: {1} nodes", depthFirstTimeArray.Average(), depthFirstRouteLengthArray.Average());
+            Console.WriteLine("Breadth First Search took {0} Microseconds on avaerage, with an average length of route: {1} nodes", breadthFirstTimeArray.Average(), breadthFirstRouteLengthArray.Average());
+          
 
             // test
             //

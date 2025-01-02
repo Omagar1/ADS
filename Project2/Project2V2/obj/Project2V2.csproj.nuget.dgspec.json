@@ -1,37 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\Project2V2.csproj": {}
+    "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project2\\Project2V2\\Project2V2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\Project2V2.csproj": {
+    "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project2\\Project2V2\\Project2V2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\Project2V2.csproj",
+        "projectUniqueName": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project2\\Project2V2\\Project2V2.csproj",
         "projectName": "Project2V2",
-        "projectPath": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\Project2V2.csproj",
-        "packagesPath": "C:\\Users\\josia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josia\\Documents\\UNI Stuff\\CS\\24 25\\Algorithms and Data Structures\\CourseWork\\ADS\\Project2\\Project2V2\\obj\\",
+        "projectPath": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project2\\Project2V2\\Project2V2.csproj",
+        "packagesPath": "C:\\Users\\FiercePC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project2\\Project2V2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\josia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\FiercePC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net9.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net9.0": {
+            "targetAlias": "net9.0",
             "projectReferences": {}
           }
         },
@@ -44,11 +43,12 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "imports": [
             "net461",
             "net462",
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
