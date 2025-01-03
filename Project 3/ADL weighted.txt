@@ -1,6 +1,6 @@
 // for weighted
 class weightedGraph:
-	let nodes be a adjacency list of all nodes in graph and their connections with weights I.E. A : {{B, 1},{C, 1}, {E, 5}}
+	let nodes be a adjacency list of all nodes in graph and their connections with weights// I.E. A : {{B, 1},{C, 1}, {E, 5}}
 	
 	// function to traverse to all other nodes using a breadth first technique  
 	function findRoutes(startNode):
@@ -18,7 +18,7 @@ class weightedGraph:
 			end foreach
 		end foreach
 		return visited
-	endfunction
+	endFunction
 	
 	function findRoute(start, routes)
 		let route be a list of nodes
@@ -28,28 +28,29 @@ class weightedGraph:
 			add routes[nextNode] to route
 			set nextNode = routes[nextNode]
 		end while
-		return route				
+		return route
+	endFunction				
 
+	function calcScore(scoreNode, graph):
+		let distanceToNode = []
+		let routes = call findRoutes(scoreNode)
+		foreach node in graph:
+			if node is not score node: 
+			 	add  (call length(findRoute(node, routes)) ) to distanceToNode 
+			endif
+		end foreach
+		return numNodes-1 / sum of distanceToNode
+	endFunction
 
- 
-let bestScore = 0
-let bestNode = Null
-foreach node in graph:
-	let newScore = call calcScore(node)
-	if newScore > best score:
-		bestscore =  newScore
-		bestNode = node
-	end if
-end foreach
-
-
-function calcScore(scoreNode, graph):
-	let distanceToNode = []
-	let routes = call findRoutes(scoreNode)
-	foreach node in graph:
-		if node is not score node: 
-			 add  (call length(findRoute(node, routes)) ) to distanceToNode 
-		endif
-	end foreach
-	return numNodes-1 / sum of distanceToNode
-end function
+	function findBestScore()
+		let bestScore = 0
+		let bestNode = Null
+		foreach node in graph:
+			let newScore = call calcScore(node)
+			if newScore > best score:
+				bestscore =  newScore
+				bestNode = node
+			end if
+		end foreach
+	endFunction
+endClass

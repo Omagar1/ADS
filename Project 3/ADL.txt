@@ -31,18 +31,6 @@ class unweightedGraph:
 		return route				
 	endFunction
 
-function findBestScore()
-	let bestScore = 0
-	let bestNode = Null
-	foreach node in graph:
-		let newScore = call calcScore(node)
-		if newScore > best score:
-			bestscore =  newScore
-			bestNode = node
-		end if
-	end foreach
-endFunction
-
 	function calcScore(scoreNode, graph):
 		let distanceToNode = []
 		let routes = call findRoutes(scoreNode)
@@ -52,6 +40,18 @@ endFunction
 			endif
 		end foreach
 		return numNodes-1 / sum of distanceToNode
+	endFunction
+
+	function findBestScore()
+		let bestScore = 0
+		let bestNode = Null
+		foreach node in graph:
+			let newScore = call calcScore(node)
+			if newScore > best score:
+				bestscore =  newScore
+				bestNode = node
+			end if
+		end foreach
 	endFunction
 endClass
 
