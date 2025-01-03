@@ -65,6 +65,22 @@ class unweightedGraph
 
         return (nodes.Count() - 1) / distanceToNode.Sum();
     }
+    public KeyValuePair<string, double> findBestScore()
+    {
+        double bestScore = 0;
+        string? bestNode = null;
+
+        foreach (KeyValuePair<string, List<string>> node in nodes)
+        {
+            double newScore = this.calcScore(node.Key);
+            if (newScore > bestScore)
+            {
+                bestScore = newScore;
+                bestNode = node.Key;
+            }
+        }
+        return new KeyValuePair<string, double>(bestNode, bestScore);
+    }
     public Dictionary<string, List<string>> getNodes()
     {
         return nodes;   
@@ -131,6 +147,23 @@ class weightedGraph
 
         return (nodes.Count() - 1) / distanceToNode.Sum();
     }
+
+    public KeyValuePair<string, double> findBestScore()
+    {
+        double bestScore = 0;
+        string? bestNode = null;
+
+        foreach (KeyValuePair<string, Dictionary<string, int>> node in nodes)
+        {
+            double newScore = this.calcScore(node.Key);
+            if (newScore > bestScore)
+            {
+                bestScore = newScore;
+                bestNode = node.Key;
+            }
+        }
+        return new KeyValuePair<string, double>(bestNode, bestScore);
+    }
     public Dictionary<string, Dictionary<string, int>> getNodes()
     {
         return nodes;
@@ -175,44 +208,18 @@ namespace Project3
             };
 
 
-            /*unweightedGraph testGraph = new unweightedGraph(adjacenies_unweighted);*/
-            weightedGraph testGraph = new weightedGraph(adjacenies_weighted);
-            KeyValuePair<string, double> result = findBestScore(testGraph);
-            Console.WriteLine("the best node is {0} with a score of: {1}", result.Key, result.Value);
-
-        }
-        public static KeyValuePair<string, double> findBestScore(unweightedGraph graph)
-        {
-            double bestScore = 0;
-            string? bestNode = null;
+            unweightedGraph testGraph1 = new unweightedGraph(adjacenies_unweighted);
+            weightedGraph testGraph2 = new weightedGraph(adjacenies_weighted);
             
-            foreach (KeyValuePair<string, List<string>> node in graph.getNodes())
-            {
-                double newScore = graph.calcScore(node.Key);
-                if (newScore > bestScore)
-                {
-                    bestScore = newScore;
-                    bestNode = node.Key;
-                }
-            }
-            return new KeyValuePair<string, double>  ( bestNode, bestScore ); 
-        }
-        public static KeyValuePair<string, double> findBestScore(weightedGraph graph)
-        {
-            double bestScore = 0;
-            string? bestNode = null;
+            KeyValuePair<string, double> result1 = testGraph1.findBestScore();
+            Console.WriteLine("the best node in testGraph1 is {0} with a score of: {1}", result1.Key, result1.Value);
+            
+            KeyValuePair<string, double> result2 = testGraph2.findBestScore();
+            Console.WriteLine("the best node in testGraph2 is {0} with a score of: {1}", result2.Key, result2.Value);
 
-            foreach (KeyValuePair<string, Dictionary<string,int>> node in graph.getNodes())
-            {
-                double newScore = graph.calcScore(node.Key);
-                if (newScore > bestScore)
-                {
-                    bestScore = newScore;
-                    bestNode = node.Key;
-                }
-            }
-            return new KeyValuePair<string, double>(bestNode, bestScore);
         }
+        
+        
 
 
     }

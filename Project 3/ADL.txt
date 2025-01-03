@@ -29,7 +29,7 @@ class unweightedGraph:
 			set nextNode = routes[nextNode]
 		end while
 		return route				
-
+	endfunction
 
  
 let bestScore = 0
@@ -43,16 +43,16 @@ foreach node in graph:
 end foreach
 
 
-function calcScore(scoreNode, graph):
-	let distanceToNode = []
-	let routes = call findRoutes(scoreNode)
-	foreach node in graph:
-		if node is not score node: 
-			 add  (call length(findRoute(node, routes)) ) to distanceToNode 
-		endif
-	end foreach
-	return numNodes-1 / sum of distanceToNode
-end function
+	function calcScore(scoreNode, graph):
+		let distanceToNode = []
+		let routes = call findRoutes(scoreNode)
+		foreach node in graph:
+			if node is not score node: 
+				 add  (call length(findRoute(node, routes)) ) to distanceToNode 
+			endif
+		end foreach
+		return numNodes-1 / sum of distanceToNode
+	end function
 
 
 
