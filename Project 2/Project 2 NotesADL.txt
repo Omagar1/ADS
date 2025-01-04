@@ -1,5 +1,5 @@
 
-I looked at the Examples provided and realised I could treat the 2 d arrays as graphs therefore I could use a Depth first and Breadth first traversals 
+I looked at the Examples provided and realised I could treat the 2d arrays as graphs therefore I could use a Depth first and Breadth first traversals 
 
 
 Depth first approach 
@@ -16,7 +16,8 @@ Depth first approach
 
 // assuming Endless stack is implemented
 
-function lookArround(array currentLocation, array maze ){ // returns an array of all coordinates 1 place away form currentLocation
+function lookArround(array currentLocation, array maze ){ 
+// returns an array of all coordinates 1 place away form currentLocation
 	int x <- currentLocation - 1
 	int y <- currentLocation + 1
 	array zerosLocation <- {}
@@ -36,7 +37,8 @@ function lookArround(array currentLocation, array maze ){ // returns an array of
 	return zerosLocation
 }
 
-function findRoute(array currentPos, EndlessStack previous, list visited, array maze){ // returns to exits if found if not returns empty array.
+function findRoute(array currentPos, EndlessStack previous, list visited, array maze){ 
+// returns to exits if found if not returns empty array.
 	array options <- lookArround(currentPos, maze)
 	previous.add(currentPos)
 	vistited.add(currentPos)
@@ -126,7 +128,7 @@ function traverseNodes(currentNode,stack):
 
 declare startPosition, queue, visitedlist
 
-
+// traversal of maze
 loop:
 	if current location on edge: 
 		set currentlocation's endFound to true
@@ -138,6 +140,7 @@ loop:
 	set current location to first node in queue
 until queue is empty
 
+// finding routes
 declare routesList
 loop for every node in visitedList: 
 	if node's endFound is true:
