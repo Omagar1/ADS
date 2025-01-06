@@ -21,7 +21,7 @@ public struct BinPackingSolution
 
 public class BinPackingHC
 {
-    public BinPackingHC(double[] dataSet, double binCapacity) 
+    public BinPackingHC(double[] dataSet, double binCapacity) // for tests 
     {
         this.dataSet = dataSet;
         this.binCapacity = binCapacity;
@@ -29,7 +29,7 @@ public class BinPackingHC
         this.tolerance = 100000;
 
     }
-    public BinPackingHC(string dataSetFilePath, double binCapacity)
+    public BinPackingHC(string dataSetFilePath, double binCapacity) // for genral running 
     {
         //.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         string[] temp = File.ReadAllLines(dataSetFilePath);
@@ -318,21 +318,21 @@ namespace binPacking
     {
         static void Main(string[] args)
         {
-            //double[] DATASET = [55.44, 15.12, 0.77, 3.1, 95.24, 89.59, 7.12, 58.77, 78.98, 55.76, 30.34, 17.5, 44.05, 74.76, 28.4, 96.55, 87.78, 65.56, 72.91, 39.74, 39.52, 38.72, 8.12, 32.31, 12.28, 52.15, 89.93, 15.9, 3.37, 2.18];
-            //string dataSetPath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\dataset.csv";
-            //double binSize = 130;
-            //BinPackingHC sol1 = new BinPackingHC(dataSetPath, binSize);
-
+            double[] DATASET = [55.44, 15.12, 0.77, 3.1, 95.24, 89.59, 7.12, 58.77, 78.98, 55.76, 30.34, 17.5, 44.05, 74.76, 28.4, 96.55, 87.78, 65.56, 72.91, 39.74, 39.52, 38.72, 8.12, 32.31, 12.28, 52.15, 89.93, 15.9, 3.37, 2.18];
+            string dataSetPath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\dataset.csv";
+            double binSize = 130;
+            BinPackingHC sol1 = new BinPackingHC(dataSetPath, binSize);
+            sol1.start("C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\videoPres.txt");
 
             // ---- for unit testing --- 
-            string unitTests_filePath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\UnitTests";
-            double[] test_dataSet = { 4, 2, 3, 1, 2};
-            double test_BinSize = 5;
+            //string unitTests_filePath = "C:\\Users\\FiercePC\\Documents\\GitHub\\ADS\\Project 4\\UnitTests";
+            //double[] test_dataSet = { 4, 2, 3, 1, 2};
+            //double test_BinSize = 5;
 
             /*BinPackingHC_Tests.getBins_test(testSolutions, test_dataSet, test_BinSize, unitTests_filePath); */
             //BinPackingHC_Tests.getBins_test(test_dataSet, test_BinSize, unitTests_filePath);
             //BinPackingHC_Tests.smallChange_test(test_dataSet, test_BinSize, unitTests_filePath);
-            BinPackingHC_Tests.calcFitness_test(test_dataSet, test_BinSize, unitTests_filePath);
+            //BinPackingHC_Tests.calcFitness_test(test_dataSet, test_BinSize, unitTests_filePath);
 
 
 
