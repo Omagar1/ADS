@@ -119,8 +119,7 @@ namespace maze
                         }
 
                     } // checks if lookPos is not in range as would signify that the End has been found and previous is > 1  as to check we are not at the start, 
-                      // && maze[y, x] != 1 && !currentPos.SequenceEqual(lookPos) && !visited.Any(array => array.SequenceEqual(lookPos))
-                    else if ((!inRange(maze, lookPos) && previous.count() > 1))
+                    else if ((!inRange(maze, lookPos) && previous.count() > 1)) // end found check
                     {
                         // end found 
                         /*previous.Add(currentPos);*/
@@ -200,12 +199,11 @@ namespace maze
                             //Console.WriteLine("is ({0},{1}) in queue: {2} ", y, x, visitedlist.Any(node => node.samePos(lookPos))); //test
                             if (!onEdge && maze[y, x] == 0 && !currentNode.position.SequenceEqual(lookPos) && !visitedlist.Any(node => node.samePos(lookPos)) && !toVisit.Any(node => node.samePos(lookPos)) )
                             {
-                                
                                 Node lookNode = new Node(lookPos, currentNode, onEdge);
                                 //Console.WriteLine("added Node ({0},{1}) to queue", lookNode.position[0],lookNode.position[1]);
                                 toVisit.Enqueue(lookNode);
                             }
-                            else if(!isStart && onEdge) // to prevent the start being counted
+                            else if(!isStart && onEdge) // end found check - isStart to prevent the start being counted and program exiting emidiatly
                             {
                                 //Console.WriteLine("End Found"); //test
                                 currentNode.isEnd = true;
@@ -287,7 +285,7 @@ namespace maze
         static void Main(string[] args)
         {
 
-            int[,] maze = {
+            int[,] maze1 = {
                 { 1,0,1,1,1,1,1,1},
                 { 1,0,0,0,0,0,0,1},
                 { 1,1,1,1,1,1,0,1},
@@ -327,11 +325,11 @@ namespace maze
                 { 1,1,1,1,1,1,1,1}
             };
 
-
+            int[,] mazeToRun = maze3;
 
             int[] STARTPos = { 0, 1 };
-            depthFirst Alg1 = new depthFirst(maze3);
-            breadthFirst Alg2 = new breadthFirst(maze3);
+            depthFirst Alg1 = new depthFirst(mazeToRun);
+            breadthFirst Alg2 = new breadthFirst(mazeToRun);
             Node STARTPosNode = new Node(STARTPos);
             List<int[]>? alg1Result = Alg1.findRoute(STARTPos);
             List<int[]>? alg2Result = Alg2.findRoute(STARTPosNode);
@@ -381,7 +379,7 @@ namespace maze
             for (int i = 0; i < 10; i++)
             {
                 DateTime start = DateTime.Now;
-                depthFirst alg = new depthFirst(maze2);
+                depthFirst alg = new depthFirst(mazeToRun);
                 List<int[]>? algResult = alg.findRoute(STARTPos);
                 DateTime end = DateTime.Now;
                 depthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;
@@ -397,7 +395,7 @@ namespace maze
             for (int i = 0; i < 10; i++)
             {
                 DateTime start = DateTime.Now;
-                breadthFirst alg = new breadthFirst(maze2);
+                breadthFirst alg = new breadthFirst(mazeToRun);
                 List<int[]>? algResult = alg.findRoute(STARTPosNode);
                 DateTime end = DateTime.Now;
                 breadthFirstTimeArray[i] = (long)(end - start).TotalMicroseconds;

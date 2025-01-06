@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using static System.Formats.Asn1.AsnWriter;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 class unweightedGraph
 {
@@ -16,7 +18,7 @@ class unweightedGraph
     public Dictionary<string,string> findRoutes(string startNode)
     {
         Queue<string> toVisit = new Queue<string>();
-        Dictionary<string,string> visited = new Dictionary<string,string>();
+        Dictionary<string,string> visited = new Dictionary<string,string>();// in format node: node from
         toVisit.Enqueue(startNode); 
         visited.Add(startNode, string.Empty);
         string currentNode; 
@@ -58,12 +60,12 @@ class unweightedGraph
         {
             if (node.Key != scoreNode)
             {
-                distanceToNode.Add(findRoute(node.Key, routes).Count() - 1); // -1 as the route will contain the score node as well and we want to find the distance to the node
+                distanceToNode.Add(findRoute(node.Key, routes).Count()-1); // -1 as the route will contain the score/starting node as well
 
             }
         }
 
-        return (nodes.Count() - 1) / distanceToNode.Sum();
+        return (nodes.Count() - 1) / distanceToNode.Sum(); // nodes.Count() - 1 = n - 1 part of equation :  distanceToNode.Sum() = d(u,v) part of equation 
     }
     public KeyValuePair<string, double> findBestScore()
     {
@@ -81,6 +83,22 @@ class unweightedGraph
         }
         return new KeyValuePair<string, double>(bestNode, bestScore);
     }
+    public KeyValuePair<string, double> findWorstScore()
+    {
+        double worstScore = 1;
+        string? worstNode = null;
+
+        foreach (KeyValuePair<string, List<string>> node in nodes)
+        {
+            double newScore = this.calcScore(node.Key);
+            if (newScore < worstScore)
+            {
+                worstScore = newScore;
+                worstNode = node.Key;
+            }
+        }
+        return new KeyValuePair<string, double>(worstNode, worstScore);
+    }
     public Dictionary<string, List<string>> getNodes()
     {
         return nodes;   
@@ -95,58 +113,42 @@ class weightedGraph
     {
         this.nodes = nodes;
     }
-    public Dictionary<string, KeyValuePair<string, int>> findRoutes(string startNode)
+    public Dictionary<string, int> findRoutesLengths(string startNode) // using Dijkstra's algorithm
     {
+        // set up
+        List<string> visited = new List<string>();  
         Queue<string> toVisit = new Queue<string>();
-        Dictionary<string, KeyValuePair<string, int>> visited = new Dictionary<string, KeyValuePair<string, int>>();
+        Dictionary<string, int> shortestRouteTo = new Dictionary<string, int>();
+        foreach (string node in nodes.Keys)
+        {
+            shortestRouteTo[node] = (node != startNode)? Int32.MaxValue : 0;
+        }
+        // traversal
         toVisit.Enqueue(startNode);
-        visited.Add(startNode, new KeyValuePair<string, int>(string.Empty, 0));
-        string currentNode;
-
-        while (toVisit.Count() > 0)
+        while(toVisit.Count() != 0)
         {
-            currentNode = toVisit.Dequeue();
-            foreach (KeyValuePair<string, int> adjacentNode in this.nodes[currentNode])
+
+            string currentNode = toVisit.Dequeue();
+            visited.Add(currentNode);
+            foreach (KeyValuePair<string, int> node in nodes[currentNode])
             {
-                if (!visited.Keys.Contains(adjacentNode.Key))
+                
+                // if new route better than current route
+                shortestRouteTo[node.Key] = (node.Value + shortestRouteTo[currentNode] < shortestRouteTo[node.Key]) ? node.Value + shortestRouteTo[currentNode] : shortestRouteTo[node.Key] ;
+                if (!visited.Contains(node.Key))
                 {
-                    toVisit.Enqueue(adjacentNode.Key);
-                    visited.Add(adjacentNode.Key, new KeyValuePair<string, int>(currentNode, nodes[currentNode][adjacentNode.Key]));
+                    toVisit.Enqueue(node.Key);
                 }
-
-            }
-
+            } 
         }
-        return visited;
-    }
-    public Dictionary<string, int> findRoute(string start, Dictionary<string, KeyValuePair<string, int>> routes)
-    {
-        Dictionary<string, int> route = new Dictionary<string, int>();
-        string nextNode = start;
-        route.Add(start, 0);
-        while (routes[nextNode].Key != ""  )
-        {
-            route.Add(routes[nextNode].Key, routes[nextNode].Value);
-            nextNode = routes[nextNode].Key;
-        }
-        return route;
+        return shortestRouteTo;
+        
+        
     }
     public double calcScore(string scoreNode)
     {
-
-        List<double> distanceToNode = new List<double>();
-        Dictionary<string, KeyValuePair<string, int>> routes = findRoutes(scoreNode);
-
-        foreach (KeyValuePair<string, Dictionary<string, int>> node in nodes)
-        {
-            if (node.Key != scoreNode)
-            {
-                distanceToNode.Add(findRoute(node.Key, routes).Values.Sum() - 1); 
-
-            }
-        }
-
-        return (nodes.Count() - 1) / distanceToNode.Sum();
+        Dictionary<string, int> distanceToNodes = findRoutesLengths(scoreNode);
+        return (nodes.Count() - 1) / (double)distanceToNodes.Values.Sum(); // nodes.Count() - 1 = n - 1 part of equation :  distanceToNodes.Sum() = d(u,v) part of equation
     }
 
     public KeyValuePair<string, double> findBestScore()
@@ -165,6 +167,24 @@ class weightedGraph
         }
         return new KeyValuePair<string, double>(bestNode, bestScore);
     }
+    
+    
+    public KeyValuePair<string, double> findWorstScore()
+    {
+        double worstScore = 1;
+        string? worstNode = null;
+
+        foreach (KeyValuePair<string, Dictionary<string, int>> node in nodes)
+        {
+            double newScore = this.calcScore(node.Key);
+            if (newScore < worstScore)
+            {
+                worstScore = newScore;
+                worstNode = node.Key;
+            }
+        }
+        return new KeyValuePair<string, double>(worstNode, worstScore);
+    }
     public Dictionary<string, Dictionary<string, int>> getNodes()
     {
         return nodes;
@@ -181,7 +201,7 @@ namespace Project3
     {
         public static void Main()
         {
-            
+
             Dictionary<string, List<string>> adjacenies_unweighted = new Dictionary<string, List<string>>()
             {
                 {"Alicia" , new List<string> {"Britney"} },
@@ -196,7 +216,7 @@ namespace Project3
             Dictionary<string, Dictionary<string, int>> adjacenies_weighted = new Dictionary<string, Dictionary<string, int>>()
             {
                 {"A" , new  Dictionary<string,int> { { "B", 1 } , { "C", 1 }, { "E", 5 } } },
-                {"B" , new  Dictionary<string,int> { { "A", 1 } , { "C", 4 }, { "E", 1 }, { "H", 1 } } },
+                {"B" , new  Dictionary<string,int> { { "A", 1 } , { "C", 4 }, { "E", 1 }, { "G", 1 }, { "H", 1 } } },
                 {"C" , new  Dictionary<string,int> { { "A", 1 } , { "B", 4 }, { "E", 1 }, { "D", 3 } } },
                 {"D" , new  Dictionary<string,int> { { "C", 3 } , { "E", 2 }, { "G", 5 }, { "F", 1 } } },
                 {"E" , new  Dictionary<string,int> { { "A", 5 } , { "B", 1 }, { "C", 1 } , { "D", 2 }, { "G", 2 }, } },
@@ -211,17 +231,26 @@ namespace Project3
 
             unweightedGraph testGraph1 = new unweightedGraph(adjacenies_unweighted);
             weightedGraph testGraph2 = new weightedGraph(adjacenies_weighted);
-            
+
             KeyValuePair<string, double> result1 = testGraph1.findBestScore();
             Console.WriteLine("the best node in testGraph1 is {0} with a score of: {1}", result1.Key, result1.Value);
-            
-            KeyValuePair<string, double> result2 = testGraph2.findBestScore();
-            Console.WriteLine("the best node in testGraph2 is {0} with a score of: {1}", result2.Key, result2.Value);
+            KeyValuePair<string, double> result2 = testGraph1.findWorstScore();
+            Console.WriteLine("the worst node in testGraph1 is {0} with a score of: {1}", result2.Key, result2.Value);
+
+            KeyValuePair<string, double> result3 = testGraph2.findBestScore();
+            Console.WriteLine("the best node in testGraph2 is {0} with a score of: {1}", result3.Key, result3.Value);
+            KeyValuePair<string, double> result4 = testGraph2.findWorstScore();
+            Console.WriteLine("the worst node in testGraph2 is {0} with a score of: {1}", result4.Key, result4.Value);
+
+            // --- tests ---
+            /*Dictionary<string, int> bestRoutes = testGraph2.findRoutesLengths("B");
+            foreach (KeyValuePair<string, int> node in bestRoutes)
+            {
+                Console.WriteLine(node.Key + ": " + node.Value); // test
+            }*/
+
 
         }
-        
-        
-
 
     }
 }
